@@ -19,15 +19,9 @@ UnicornStudio.addScene(conf)
         document.body.classList.add("loaded");
         const el = document.getElementById("unicorn");
         window.addEventListener("resize", () => {
-            if (!scene?.resize) return;
-            if (el) {
-                el.style.width = window.innerWidth + "px";
-                el.style.height = window.innerHeight + "px";
-                el.getBoundingClientRect(); // force reflow
-            }
+            el.style.width = window.innerWidth + "px";
             scene.resize();
             scene.requestSceneRender?.();
-            if (el) { el.style.width = ""; el.style.height = ""; }
         });
     })
     .catch((err) => {
