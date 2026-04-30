@@ -528,12 +528,21 @@ body {
 .medal__extra-info {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 8px;
     width: 100%;
+    --sat: 1.5;
     > .fab {
         width: 100%;
     }
     > div {
+        background: color-mix(in srgb, var(--col-l2) 50%, transparent);
+        padding: 14px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, var(--col-l6) 50%, transparent);
+        .graph-outer {
+            height: 150px;
+        }
         h3 {
             font-size: 20px;
             font-weight: 300;
@@ -557,6 +566,29 @@ body {
                 margin-left: auto;
                 font-size: 18px;
                 font-weight: 200;
+            }
+        }
+        &:has(*.header) {
+            padding: 0px;
+            .header, .inner {
+                padding: 14px;
+            }
+            .header {
+                background: color-mix(in srgb, var(--col-l4) 50%, transparent);
+
+            }
+            .inner:has(*.graph-outer) {
+                padding: 0px;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: stretch;
+                .graph-outer {
+                    border: transparent;
+                    width: 100%;
+                    border-radius: 0px;
+                    background: transparent;
+                }
             }
         }
     }

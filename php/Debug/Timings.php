@@ -81,4 +81,22 @@ class Timings implements \JsonSerializable
             'colour' => $this->colour
         ];
     }
+
+    public static function get()
+    {
+        $firstEvent = self::$finished[0] ?? null;
+        $lastEvent = end(self::$finished) ?? null;
+        return [
+            "start" => $firstEvent?->startTime ?? microtime(true),
+            "finish" => $lastEvent?->finishTime ?? microtime(true),
+            "timings" => array_merge(self::$finished, self::$running)
+        ];
+    }
+
+    public static function finishAll()
+    {
+        foreach (self::$running as $timing) {
+            $timing->finish();
+        }
+    }
 }

@@ -41,7 +41,7 @@ async function DoRequestWithFile(method, url, data = {}, headers = {}, onUploadP
     return await DoRequest(method, url, form, headers, onUploadProgress);
 }
 
-async function DoRequest(method, url, data = null, headers = {}, onUploadProgress = null) {
+async function DoRequest(method, url, data = {}, headers = {}, onUploadProgress = null) {
     if (document.getElementById("request-loader")) {
         document.getElementById("request-loader").classList.remove("hidden");
     }
@@ -49,6 +49,11 @@ async function DoRequest(method, url, data = null, headers = {}, onUploadProgres
     if (url == null) {
         url = method;
         method = "GET";
+    }
+
+    data['compress'] = "yes";
+    if(method == "GET") {
+        url += (url.includes('?') ? '&' : '?') + 'compress';
     }
 
     return new Promise((resolve, reject) => {
@@ -121,6 +126,26 @@ async function DoRequest(method, url, data = null, headers = {}, onUploadProgres
                             return v;
                         });
 
+                        const unpack = (val) => {
+                            if (val === null || typeof val !== 'object') return val;
+
+                            if (Array.isArray(val)) {
+                                return val.map(unpack);
+                            }
+
+                            if (val._t) {
+                                return val.d.map(row =>
+                                    Object.fromEntries(val.k.map((k, i) => [k, unpack(row[i])]))
+                                );
+                            }
+
+                            // associative object — recurse into values
+                            return Object.fromEntries(
+                                Object.entries(val).map(([k, v]) => [k, unpack(v)])
+                            );
+                        };
+                        if (data.content) data.content = unpack(data.content);
+                        console.log("Request: URL " + url + " returned:\n", data)
 
 
                         if (typeof data.success !== "undefined") {

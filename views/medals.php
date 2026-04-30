@@ -156,7 +156,7 @@ if ($cur_medal == null) {
                             <h1>Extra Info</h1>
                         </div>
                         <div class="divider"></div>
-                        <div class="medal__extra-info">
+                        <div class="medal__extra-info col-reset">
                             <div>
                                 <h3>Release Date</h3>
                                 <div>
@@ -165,12 +165,23 @@ if ($cur_medal == null) {
                                 </div>
                             </div>
                             <div class="fab">
-                                <h3>First Achieved By</h3>
-                                <a target="_blank" id="medal_first_achieved_by_link">
+                                <div class="header">
+                                    <h3>First Achieved By</h3>
+                                </div>
+                                <a target="_blank" id="medal_first_achieved_by_link" class="inner">
                                     <img id="medal_first_achieved_by_pfp">
                                     <h1 id="medal_first_achieved_by"></h1>
                                     <h2 id="medal_first_achieved_date"></h2>
                                 </a>
+                            </div>
+                            <div>
+                                <div class="header">
+                                    <h3>Medal Adoption</h3>
+                                    <p><span id="medal_adoption_users"></span> users</p>
+                                </div>
+                                <div class="inner" id="medal_adoption_graph">
+
+                                </div>
                             </div>
                         </div>
                     </div>

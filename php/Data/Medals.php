@@ -337,4 +337,26 @@ class Medals
 
         return new Response(true, "Success", $readableMedalScores);
     }
+
+    public static function GetExtraData($id)
+    {
+        $adoption_graph = Connection::execSelect("SELECT
+    DATE(Achieved_At) AS Date,
+    COUNT(*) AS Users_Earned
+FROM Rankings_Users_Medals
+WHERE Medal_ID = ?
+  AND Achieved_At IS NOT NULL
+GROUP BY DATE(Achieved_At)
+ORDER BY Date ASC;", "i", [$id]);
+        $cumulative = 0;
+        foreach ($adoption_graph as &$row) {
+            $cumulative += $row['Users_Earned'];
+            $row['Total'] = $cumulative;
+        }
+        return new Response(true, "Success", [
+            "Graphs" => [
+                "Adoption" => $adoption_graph
+            ]
+        ]);
+    }
 }

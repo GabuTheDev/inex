@@ -1,0 +1,24 @@
+.errorui-area {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    svg {
+        height: 128px;
+        width: auto;
+        * {
+            stroke-width: 1px;
+        }
+    }
+    .button-row {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        >* {
+            flex: unset;
+        }
+    }
+}

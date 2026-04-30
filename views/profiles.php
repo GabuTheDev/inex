@@ -1,62 +1,36 @@
 <?php
-$user = API\Osu\User::GetUser($args[0]);
-$medals = \Data\Medals::GetAll()->content;
-
-
-$graph_medalPercentageOverTimeRelative = [];
-$graph_medalPercentageOverTimeTotal = [];
-
-// collect all release dates
-$releaseDates = array_column($medals, 'Date_Released');
-sort($releaseDates);
-
-// collect all achieved dates
-$achievedDates = array_column($user['user_achievements'], 'achieved_at');
-sort($achievedDates);
-
-// walk through both sorted arrays together
-$totalReleased = 0;
-$totalAchieved = 0;
-$r = 0;
-$a = 0;
-
-while ($r < count($releaseDates) || $a < count($achievedDates)) {
-    $release = $releaseDates[$r] ?? PHP_INT_MAX;
-    $achieved = $achievedDates[$a] ?? PHP_INT_MAX;
-
-    if ($release <= $achieved) {
-        $totalReleased++;
-        $r++;
-    } else {
-        $totalAchieved++;
-        $a++;
-    }
-
-    $graph_medalPercentageOverTime[] = [
-            'date' => min($release, $achieved),
-            'percentage' => round(($totalAchieved / $totalReleased) * 100, 2),
-            'achieved' => $totalAchieved,
-            'released' => $totalReleased,
-    ];
-}
-
-$deduped = [];
-foreach ($graph_medalPercentageOverTime as $point) {
-    $day = substr($point['date'], 0, 10);
-    $deduped[$day] = $point;
-}
-$graph_medalPercentageOverTime = array_values($deduped);
-
-$totalMedals = count($releaseDates);
-$totalAchieved = 0;
-foreach ($achievedDates as $date) {
-    $totalAchieved++;
-    $graph_medalPercentageOverTimeTotal[] = [
-            'date' => $date,
-            'percentage' => round(($totalAchieved / $totalMedals) * 100, 2),
-            'achieved' => $totalAchieved,
-    ];
+if(INSTANCE !== "dev") {
+    echo "<script>window.location.href = 'https://osekai.net/profiles?user=".$args[0]."';</script>";
+    exit;
 }
 ?>
+<script>
+    const profileID = <?= json_encode($args[0]) ?>
+</script>
 
-<pre><?= json_encode($graph_medalPercentageOverTimeRelative, JSON_PRETTY_PRINT) ?></pre>
+<div class="header-img" id="profiles-header-img">
+
+</div>
+<div class="page-container-inner">
+    <div class="user-header">
+        <img id="user-pfp" pr-el="pfp">
+        <div class="name">
+            <div>
+                <img id="user-flag" pr-el="flag">
+                <h1 pr-el="username">USERNAME</h1>
+            </div>
+            <span><i pr-el="gamemode-icon" class="icon-gamemode-osu"></i> #<span pr-el="gamemode-rank">00000</span> Global</span>
+        </div>
+        <div class="panels">
+            <div pr-el="panel-allmode">
+                ALLMODE
+            </div>
+            <div pr-el="panel-medals">
+                MEDALS
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel hidden">
+    <div id="medal-graph"></div>
+</div>

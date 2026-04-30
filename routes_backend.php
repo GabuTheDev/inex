@@ -62,7 +62,9 @@ $router->all("/api/medals/{id}/save", function ($id) {
     }
     echo \Data\Medals::Save($id, $_REQUEST)->ReturnJson();
 });
-
+$router->all("/api/medals/{id}/extra", function ($id) {
+    echo \Data\Medals::GetExtraData($id)->ReturnJson();
+});
 
 /// =====================
 /// Medals Beatmaps
@@ -157,4 +159,12 @@ $router->all("/api/rankings/get", function () {
 });
 $router->all("/api/rankings/add", function () {
     echo \Data\Rankings::AddUser($_POST['id'])->ReturnJson();
+});
+
+/// =====================
+/// Profiles
+/// =====================
+
+$router->all("/api/profiles/{id}", function ($id) {
+    echo \Data\Profiles::Get($id)->ReturnJson();
 });

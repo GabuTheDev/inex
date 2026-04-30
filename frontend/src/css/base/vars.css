@@ -136,22 +136,29 @@ body.theme-light, body.theme-light .col-reset {
 
 body {
     --c100: linear-gradient(90deg, #f72585, #ffd500, #22c1c3);
-    --c95: rgb(93, 89, 249);
-    --c90: rgb(106, 237, 244);
-    --c80: rgb(182, 106, 237);
-    --c60: rgb(250, 89, 111);
-    --c40: rgb(255, 140, 104);
+    --c98: #FAD82E;
+    --c95: #FF445A;
+    --c90: #E44AFF;
+    --c80: #65C4FF;
+    --c60: #5AFFC3;
+    --c40: #9FB5D8;
     --cnone: rgba(161, 190, 206, 0.4);
 }
 
-.col95club {
-    --maincol: var(--c95) !important;
-    --nextcol: var(--c100) !important;
-}
 
 .col100club {
     --maincol: var(--c100) !important;
     --nextcol: var(--cnone) !important;
+}
+
+.col98club {
+    --maincol: var(--c98) !important;
+    --nextcol: var(--c100) !important;
+}
+
+.col95club {
+    --maincol: var(--c95) !important;
+    --nextcol: var(--c98) !important;
 }
 
 .col90club {

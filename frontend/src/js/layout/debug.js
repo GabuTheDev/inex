@@ -1,12 +1,13 @@
 import {D2} from "../utils/d2";
 let done = false;
-export function renderDebugTimings() {
+export function renderDebugTimings(timingsData = null) {
     document.getElementById("debug-timings").classList.toggle("full-hidden");
     if(document.getElementById("debug-timings").classList.contains("full-hidden")) return;
     if(done) return;
     done = true;
 
-    const data = window.be.debugTimings;
+    const data = timingsData ?? window.be.debugTimings;
+
     const timingBars = document.getElementById("debug-timing-bars");
     const totalTime = data.finish - data.start;
 

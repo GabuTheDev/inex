@@ -89,6 +89,13 @@ export class D2 {
         if (D2._currentParent) D2._currentParent.appendChild(el);
         return el;
     }
+    static StyledText(tag, text, className = "") {
+        const el = document.createElement(tag);
+        el.innerHTML = text;
+        if (className) el.className = className;
+        if (D2._currentParent) D2._currentParent.appendChild(el);
+        return el;
+    }
 
     static OTabButton(text, page) {
         const button = D2.Custom("button", "tab");

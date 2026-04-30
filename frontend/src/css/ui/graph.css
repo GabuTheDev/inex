@@ -1,0 +1,209 @@
+.graph-outer {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    background: var(--col-d2);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--col-l3);
+    svg {
+        z-index: 24;
+        position: relative;
+    }
+}
+
+.graph-outer.dragging {
+    cursor: grabbing;
+}
+
+.graph-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+/* sticky y axis — sits above graph-inner, never pans */
+.graph-y-axis {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 300px;
+    width: 44px; /* matches PAD_L */
+    pointer-events: none;
+    z-index: 2;
+    background: color-mix(in srgb, var(--col-d1) 20%, transparent);
+}
+
+.graph-tooltip {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--col-l2) 50%, transparent);
+
+    border: 1px solid color-mix(in srgb, var(--col-l3) 50%, transparent);
+    border-radius: calc(var(--border-radius) / 2);
+    backdrop-filter: blur(3px);
+    padding: 6px 10px;
+    color: var(--col-text-l1);
+    font-size: 13px;
+    z-index: 10;
+    white-space: nowrap;
+    bottom: 10px;
+    right: 10px;
+    text-align: right;
+    min-width: 200px;
+}
+
+.graph-tooltip.visible {
+    display: block;
+}
+
+.graph-x-axis {
+    position: absolute;
+    height: 20px;
+    overflow: hidden;
+    margin-top: 4px;
+    bottom: 0;
+    width: 100%;
+}
+
+.graph-x-axis-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 9;
+}
+
+.graph-x-label {
+    position: absolute;
+    font-size: 11px;
+    color: var(--col-text-l2);
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.graph-grid-line {
+    stroke: var(--col-d0);
+    stroke-width: 0.5;
+}
+
+.graph-y-label {
+    font-size: 10px;
+    fill: var(--col-text-l3);
+}
+
+.graph-line {
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    fill: none;
+}
+
+.graph-event-marker {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+.graph-event-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--col-text-l2), #fff2);
+    opacity: 0.2;
+
+    &.hovered {
+        opacity: 1;
+        z-index: 92;
+        box-shadow: 0px 0px 0px 1px #fff5;
+    }
+}
+
+.graph-event-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--col-text-l2);
+    transform: translate(-50%, 0);
+}
+
+.graph-event-label {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: var(--col-text-l2);
+    white-space: nowrap;
+    padding: 2px 6px;
+    background: var(--col-l2);
+    border: 1px solid var(--col-l3);
+    border-radius: calc(var(--border-radius) / 2);
+    z-index: 999;
+}
+
+
+.graph-crosshair {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.graph-crosshair.visible {
+    display: block;
+}
+
+.graph-crosshair-line {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--col-text-l3);
+    opacity: 0.5;
+    z-index: 2;
+    transform: translateX(0px);
+}
+
+.graph-crosshair-dot {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--col-text-l1);
+    border: 2px solid var(--col-d1);
+    transform: translate(-50%, -50%);
+
+    z-index: 3;
+
+    stroke: #fff3;
+    stroke-width: 0.5;
+}
+
+
+.graph-event-label {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+}
+
+.graph-event-marker.label-visible .graph-event-label {
+    opacity: 1;
+}

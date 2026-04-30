@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class MonthlySnapshotGraph extends AbstractMigration
+final class MedalGraphs extends AbstractMigration
 {
     /**
      * Change Method.
@@ -19,10 +19,8 @@ final class MonthlySnapshotGraph extends AbstractMigration
      */
     public function change(): void
     {
-        $this->table('Rankings_Users_Monthly', ['id' => false, 'primary_key' => ['User_ID', 'Month']])
-            ->addColumn('User_ID', 'integer', ['signed' => true])
-            ->addColumn('Month', 'date')
-            ->addColumn('Medal_Count', 'integer', ['signed' => false])
-            ->create();
+        $table = $this->table('Rankings_Users_Medals');
+        $table->addIndex(['Medal_ID', 'Achieved_At'], ['name' => 'idx_medal_achieved'])
+            ->update();
     }
 }

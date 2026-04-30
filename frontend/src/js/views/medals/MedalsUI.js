@@ -18,6 +18,7 @@ import {CenteredLoader} from "../../utils/loaderUtils";
 import {timeAgo} from "../../utils/timeago";
 import {SetMedal} from "../medals";
 import {D2} from "../../utils/d2";
+import {Graph} from "../../ui/graph";
 
 
 export class MedalsUI {
@@ -233,6 +234,39 @@ export class MedalsUI {
         }
     }
 
+    static extra_AdoptionGraph = null;
+    static async LoadExtra(medal: Medal) {
+        MedalsUI.extra_AdoptionGraph?.remove();
+
+        let extraData = await DoRequest("GET", `/api/medals/${medal.Medal_ID}/extra`);
+        console.log("???", extraData);
+
+        let adoptionGraphContainer = document.getElementById("medal_adoption_graph");
+        let adoptionData = [];
+
+        let maxAdoption = 0;
+        for(let adopt of extraData.content.Graphs.Adoption) {
+            if(adopt.Total > maxAdoption) maxAdoption = adopt.Total;
+        }
+        let offset = medal.Count_Achieved_By / maxAdoption;
+
+        for(let adopt of extraData.content.Graphs.Adoption) {
+            adoptionData.push({
+                date: adopt.Date,
+                value: Math.round(adopt.Total * offset),
+                earned: Math.round(adopt.Users_Earned * offset)
+            })
+        }
+        MedalsUI.extra_AdoptionGraph = new Graph(adoptionGraphContainer);
+
+
+        MedalsUI.extra_AdoptionGraph.renderTooltip = d => `<small>${d.date}</small><h1>${d.value} users</h1><h3>(+${d.earned})</h3>`;
+        MedalsUI.extra_AdoptionGraph.H = 150;
+        MedalsUI.extra_AdoptionGraph.load(adoptionData);
+
+        document.getElementById("medal_adoption_users").innerText = medal.Count_Achieved_By;
+    }
+
     static CheckObtainedFilter() {
         // @ts-ignore
         if (!loggedIn) return;
@@ -255,8 +289,9 @@ export class MedalsUI {
         document.getElementById("medal_beatmaps").appendChild(CenteredLoader());
 
         MedalData.LoadExtra(medal, {
-            "beatmaps": this.LoadBeatmaps
+            "beatmaps": this.LoadBeatmaps,
         });
+        this.LoadExtra(medal); // no need to await, it'll be loaded in the background
         document.getElementById("comments").loadComments(medal.Medal_ID);
 
         if (scrollTo) {
