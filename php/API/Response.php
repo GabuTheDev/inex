@@ -29,6 +29,7 @@ class Response
 
     public function ReturnJson()
     {
+        header('Content-Type: application/json');
         Timings::finishAll();
         if (isset($_REQUEST['compress'])) {
             $data = [
