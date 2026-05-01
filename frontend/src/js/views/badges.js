@@ -321,7 +321,7 @@ async function init() {
     }
 
 
-    items = await DoRequest("/api/badges/get_all");
+    items = await DoRequest("POST", "/api/badges/get_all");
     items = items.content;
     renderVisibleItems();
     checkHistory();
