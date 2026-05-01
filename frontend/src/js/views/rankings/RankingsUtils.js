@@ -43,6 +43,7 @@ export const types = {
     "medals_users": {
         "category": "Medals",
         "name": "Users",
+        "icon": "users",
         "searchable": [
             "Username",
             "User ID",
@@ -85,6 +86,7 @@ export const types = {
     "medals_rarity": {
         "category": "Medals",
         "name": "Rarity",
+        "icon": "star",
         "searchable": ["Medal Name"],
         "columns": [
             helpers.rank,
@@ -140,6 +142,7 @@ export const types = {
     "pp": {
         "category": "All Mode",
         "name": "PP",
+        "icon": "area-chart",
         "searchable": [
             "Username",
             "User ID",
@@ -192,6 +195,7 @@ export const types = {
     "level": {
         "category": "All Mode",
         "name": "Level",
+        "icon": "hexagon",
         "searchable": [
             "Username",
             "User ID",
@@ -234,6 +238,7 @@ export const types = {
     "accuracy": {
         "category": "All Mode",
         "name": "Accuracy",
+        "icon": "target",
         "searchable": [
             "Username",
             "User ID",
@@ -276,6 +281,7 @@ export const types = {
     "replays": {
         "category": "All Mode",
         "name": "Replays",
+        "icon": "rotate-ccw",
         "searchable": [
             "Username",
             "User ID",
@@ -299,6 +305,7 @@ export const types = {
     "mapsets": {
         "category": "Mappers",
         "name": "Mapsets",
+        "icon": "map",
         "searchable": [
             "Username",
             "User ID",
@@ -331,6 +338,7 @@ export const types = {
     "subscribers": {
         "category": "Mappers",
         "name": "Subscribers",
+        "icon": "user-plus",
         "searchable": [
             "Username",
             "User ID",
@@ -354,6 +362,7 @@ export const types = {
     "badges": {
         "category": "Badges",
         "name": "Badges",
+        "icon": "award",
         "searchable": [
             "Username",
             "User ID",

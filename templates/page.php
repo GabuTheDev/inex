@@ -23,7 +23,6 @@ $unreadNotifs=  0;
 if(\Database\Session::LoggedIn()) {
     $unreadNotifs = Data\Notifications\Utils::UnreadCount();
 }
-print_r($unreadNotifs);
 
 use Database\Session; ?>
 

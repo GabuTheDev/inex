@@ -4,20 +4,29 @@ import {D2} from "../utils/d2";
 import {DoRequest} from "../utils/requests";
 import {PushToast} from "../ui/toasts";
 
+let categoryIcons = {
+    "Medals": "hexagon",
+    "Mappers": "pencil",
+    "Badges": "award"
+}
+
 let cats = [];
 for(var key in types) {
     if(cats.indexOf(types[key].category) == -1) cats.push(types[key].category);
 }
 
 for(let cat of cats) {
-    let panel = D2.Div("panel", () => {
-        D2.Text("h1", cat)
-        D2.Div("divider")
+    let panel = D2.Div("category-panel", () => {
+        D2.Div("", () => {
+            D2.Icon(categoryIcons[cat] ?? "circle")
+            D2.Text("h1", cat)
+        })
         D2.Div("buttongrid", () => {
             for(var key in types) {
                 if(types[key].category == cat) {
                     D2.CustomPlus("a", "buttonpanel", {"href": "/rankings/"+key}, () => [
-                        D2.Text("p", types[key].name)
+                        D2.Text("p", types[key].name),
+                        D2.Icon(types[key].icon ?? "circle")
                     ])
                 }
             }
