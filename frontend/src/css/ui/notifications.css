@@ -7,6 +7,7 @@
     max-width: 90vw;
     right: 0;
     max-height: calc(100dvh - var(--navbar-height));
+    height: calc(100dvh - var(--navbar-height));
     background: var(--col-d2);
     border-left: 1px solid var(--col-l4);
     z-index: 01189998819991197253;
