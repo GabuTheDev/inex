@@ -23,6 +23,7 @@ $unreadNotifs=  0;
 if(\Database\Session::LoggedIn()) {
     $unreadNotifs = Data\Notifications\Utils::UnreadCount();
 }
+print_r($unreadNotifs);
 
 use Database\Session; ?>
 
@@ -60,21 +61,21 @@ use Database\Session; ?>
                     </a>
                     <a class="navbar-right-button" tooltip="notifications" id="notif-button" dropdown-button="notifs-dropdown">
                         <i data-lucide="bell"></i>
+                        <?php
+                        if($unreadNotifs > 0) {
+                            ?>
+                            <div class="notification-pill" id="notif-pill">
+                                <?= $unreadNotifs ?>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </a>
 
                     <div dropdown-mode="legacy" dropdown="notifs-dropdown" id="notifications-overlay" class="notifications-overlay">
                         <h1>
                             <i data-lucide="bell"></i>
                             Notifications
-                            <?php
-                            if($unreadNotifs > 0) {
-                                ?>
-                            <div class="notification-pill" id="notif-pill">
-                                <?= $unreadNotifs ?>
-                            </div>
-                            <?php
-                            }
-                            ?>
                         </h1>
                         <div id="notifications" class="notification-list"></div>
                     </div>

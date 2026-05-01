@@ -37,7 +37,7 @@ class Utils
 
     static function UnreadCount()
     {
-        return (Connection::execSelect("SELECT COUNT(*) as c FROM Notifications WHERE Notifications.Read = 0 AND Notifications.ReceiverID = ? AND SenderID != ?", "ii", [Session::UserData()['id'], Session::UserData()['id']]))[0]['c'];
+        return (Connection::execSelect("SELECT COUNT(*) as c FROM Notifications WHERE Notifications.Read = 0 AND Notifications.ReceiverID = ? AND SenderID != ?+1", "ii", [Session::UserData()['id'], Session::UserData()['id']]))[0]['c'];
     }
 
     public static function SetRead($items)

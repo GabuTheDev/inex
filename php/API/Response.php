@@ -37,7 +37,7 @@ class Response
                 'success' => $this->success,
                 'message' => $this->message,
                 'content' => $this->_pack($this->content),
-                'timings' => Timings::get(),
+                //'timings' => Timings::get(),
             ];
 
             header('Content-Encoding: gzip');
@@ -74,6 +74,7 @@ class Response
                 "_t" => true,
                 "k" => $keys,
                 "d" => array_map(fn($row) => array_map(fn($k) => $row[$k] ?? null, $keys), $data),
+                "types" => array_map(fn($k) => gettype($data[0][$k]), $keys),
             ];
         } else {
             // associative — recurse into values
