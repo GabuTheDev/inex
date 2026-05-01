@@ -28,7 +28,7 @@ class Utils
     }
     static function Get($limit = 50, $offset = 0)
     {
-        $items = Connection::execSelect("SELECT * FROM DYN_Notifications WHERE ReceiverID = ? AND SenderID != ? ORDER BY DYN_Notifications.Date DESC LIMIT ? OFFSET ?", "iiii", [Session::UserData()['id'], Session::UserData()['id']+1, $limit, $offset]);
+        $items = Connection::execSelect("SELECT * FROM DYN_Notifications WHERE ReceiverID = ? AND SenderID != ? ORDER BY DYN_Notifications.Date DESC LIMIT ? OFFSET ?", "iiii", [Session::UserData()['id'], Session::UserData()['id'], $limit, $offset]);
         foreach ($items as &$item) {
             $item = self::CleanNotif($item);
         }
@@ -37,7 +37,7 @@ class Utils
 
     static function UnreadCount()
     {
-        return (Connection::execSelect("SELECT COUNT(*) as c FROM Notifications WHERE Notifications.Read = 0 AND Notifications.ReceiverID = ? AND SenderID != ?+1", "ii", [Session::UserData()['id'], Session::UserData()['id']]))[0]['c'];
+        return (Connection::execSelect("SELECT COUNT(*) as c FROM Notifications WHERE Notifications.Read = 0 AND Notifications.ReceiverID = ? AND SenderID != ?", "ii", [Session::UserData()['id'], Session::UserData()['id']]))[0]['c'];
     }
 
     public static function SetRead($items)
