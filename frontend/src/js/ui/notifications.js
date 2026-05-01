@@ -5,6 +5,7 @@ import {Div, LucideIcon, Text, Image} from "../utils/dom.js";
 import '../../css/ui/notifications.css'
 import DOMPurify from "dompurify";
 import {timeAgo} from "../utils/timeago";
+import {D2} from "../utils/d2";
 
 var offset = 0;
 var isMore = true;
@@ -181,6 +182,14 @@ export default async function LoadMore(auto = true) {
     if (auto === false) {
         list.innerHTML = "";
         list.innerHTML = loader;
+    }
+    if(more.length == 0) {
+        list.innerHTML = "";
+        list.appendChild(D2.Div("no-notifs", () => {
+            D2.Icon("smile");
+            D2.Text("p", "You have no notifications!");
+        }))
+        return;
     }
     for (let notification of more) {
         list.appendChild(GenerateNotification(notification));
