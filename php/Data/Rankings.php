@@ -57,7 +57,7 @@ CROSS JOIN (
     SELECT COUNT(*) AS Total_Count FROM Medals_Data
 ) AS TotalMedals
 $whereClause
-ORDER BY Rankings_Users.Count_Medals DESC";
+ORDER BY Rankings_Users.Count_Achieved_By DESC";
                 break;
 
             case "medals_rarity":
