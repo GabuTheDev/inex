@@ -16,7 +16,8 @@ SELECT Badges_Data.*,
         DISTINCT JSON_OBJECT(
             'User_ID', Badges_Users.User_ID,
             'Date_Awarded', Badges_Users.Date_Awarded,
-            'Username', Merged_Users_Deduped.Name
+            'Username', Merged_Users_Deduped.Name,
+            'Country_Code', Merged_Users_Deduped.Country_Code
         )
     ) AS Users,
     MIN(Badges_Users.Date_Awarded) AS First_Date_Awarded,
@@ -24,10 +25,10 @@ SELECT Badges_Data.*,
 FROM Badges_Data 
         LEFT JOIN Badges_Users ON Badges_Data.ID = Badges_Users.Badge_ID
         LEFT JOIN (
-            SELECT User_ID, MIN(Name) AS Name
-            FROM Merged_Users
-            GROUP BY User_ID
-        ) Merged_Users_Deduped ON Merged_Users_Deduped.User_ID = Badges_Users.User_ID
+            SELECT ID, MIN(Name) AS Name, Country_Code
+            FROM Rankings_Users
+            GROUP BY ID
+        ) Merged_Users_Deduped ON Merged_Users_Deduped.ID = Badges_Users.User_ID
 GROUP BY Badges_Data.ID
 ORDER BY First_Date_Awarded DESC
         ");
