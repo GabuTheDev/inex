@@ -42,6 +42,7 @@ class Rankings
                 $sql = "
 SELECT 
     Rankings_Users.*,
+    Medals_Data.Count_Achieved_By AS Rarest_Medal_Frequency,
     JSON_OBJECT(
         'Medal_ID', Medals_Data.Medal_ID,
         'Name', Medals_Data.Name,
@@ -57,7 +58,7 @@ CROSS JOIN (
     SELECT COUNT(*) AS Total_Count FROM Medals_Data
 ) AS TotalMedals
 $whereClause
-ORDER BY Rankings_Users.Count_Medals DESC, Medals_Data.Count_Achieved_By ASC";
+ORDER BY Rankings_Users.Count_Medals DESC, Rarest_Medal_Frequency ASC";
                 break;
 
             case "medals_rarity":
