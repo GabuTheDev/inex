@@ -23,6 +23,6 @@ run_with_restart() {
     echo "$name stopped."
 }
 
-run_with_restart "AMPRA" bash -c "cd services/ampra && npm start" &
+run_with_restart "AMPRA" bash -c "cd services/ampra && ./start.sh" &
 
 wait
