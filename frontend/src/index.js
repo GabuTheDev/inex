@@ -139,8 +139,8 @@ function InitializeAlerts() {
             })
             content.innerHTML = alert.Content;
             if(alert.Link) {
-                element.setAttribute("href", alert.Link);
-                element.addEventListener("click", () => {
+                content.setAttribute("href", alert.Link);
+                content.addEventListener("click", () => {
                     dismissed[alert.id] = true;
                     localStorage.setItem("dismissedAlerts", JSON.stringify(dismissed));
                 })
