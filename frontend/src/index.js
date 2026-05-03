@@ -133,11 +133,18 @@ function InitializeAlerts() {
 
     for (let alert of alerts) {
         if(alert.id in dismissed) continue;
-        let element = D2.Custom("a","alert-item", () => {
-            let content = D2.Div("alert-content", () => {
+        let element = D2.Div("alert-item", () => {
+            let content = D2.Custom("a", "alert-content", () => {
 
             })
             content.innerHTML = alert.Content;
+            if(alert.Link) {
+                element.setAttribute("href", alert.Link);
+                element.addEventListener("click", () => {
+                    dismissed[alert.id] = true;
+                    localStorage.setItem("dismissedAlerts", JSON.stringify(dismissed));
+                })
+            }
             if(alert.Dismissable === "1") {
                 D2.Div("dismiss", () => {
                     let dismiss = D2.IconOnlyButton("x");
@@ -149,13 +156,6 @@ function InitializeAlerts() {
                 })
             }
         })
-        if(alert.Link) {
-            element.setAttribute("href", alert.Link);
-            element.addEventListener("click", () => {
-                dismissed[alert.id] = true;
-                localStorage.setItem("dismissedAlerts", JSON.stringify(dismissed));
-            })
-        }
         document.getElementById("alerts").appendChild(element);
     }
 }
