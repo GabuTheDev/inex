@@ -14,7 +14,6 @@ class P1_Hardware
                 "drawing-tablet" => ["title" => "Drawing Tablet"],
                 "tablet-pen"     => ["title" => "Tablet Pen"],
                 "mouse"          => ["title" => "Mouse"],
-                "mousepad"       => ["title" => "Mousepad", "show" => false],
                 "keyboard"       => ["title" => "Keyboard"],
                 "keypad"         => ["title" => "Keypad"],
                 "monitor"        => ["title" => "Monitor"],
