@@ -4,6 +4,7 @@
 <?php
 if(\Database\Session::UserData()['id'] == 10379965) {
     if(isset($_GET['data'])) {
+        echo "<div class='panel'>";
         $data = \Database\Connection::execSimpleSelect("SELECT * FROM Forms_Responses WHERE Form_ID = 1");
         $out = [];
         foreach($data as $row) {
@@ -19,7 +20,9 @@ if(\Database\Session::UserData()['id'] == 10379965) {
         echo "<script>
 const outdata = " . json_encode($out) . ";
 </script>";
-        echo "<button onclick='navigator.clipboard.writeText(JSON.stringify(outdata))'>Copy to clipboard</button>";
+        echo "<button class'button' onclick='navigator.clipboard.writeText(JSON.stringify(outdata))'>Copy to clipboard</button>";
+        echo "<p>Count: " . count($out) . "</p>";
+        echo "</div>";
     }
 }
 ?>
