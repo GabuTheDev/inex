@@ -16,6 +16,10 @@ if(\Database\Session::UserData()['id'] == 10379965) {
             $out[] = $flat;
         }
         echo "<pre>" . json_encode($out, JSON_PRETTY_PRINT) . "</pre>";
+        echo "<script>
+const outdata = " . json_encode($out) . ";
+</script>";
+        echo "<button onclick='navigator.clipboard.writeText(JSON.stringify(outdata))'>Copy to clipboard</button>";
     }
 }
 ?>
