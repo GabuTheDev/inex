@@ -10,6 +10,11 @@
         also just because It's Interesting!</p>
 </div>
 
+<?php
+\Site\Embed::SetTitle("Osekai Hardware Survey");
+\Site\Embed::SetDescription("Please fill out this survey to help us understand what hardware the playerbase uses!");
+\Site\Embed::SetBannerImage("/public/img/polls/1/banner.png");
+?>
 
 <div class="page-container-inner poll-content">
         <?php
