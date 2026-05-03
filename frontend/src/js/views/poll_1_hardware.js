@@ -49,6 +49,7 @@ if (document.getElementById("form-controls")) {
                     let itemData = categories[category].categories[item];
                     itemData.responses = [];
                     itemData.notes = "";
+                    if(itemData.show === false) continue;
 
                     D2.Div("form-item", () => {
                         let addBtn;
