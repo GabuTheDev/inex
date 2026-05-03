@@ -56,7 +56,7 @@ const outdata = " . json_encode($out) . ";
                     <div class="panel howtoanswer">
                         <h1>How to answer</h1>
                         <div class="divider"></div>
-                        <p>Please use a descriptive name, e.g. "Wacom CTL-470" and not "ctl 470"</p>
+                        <h1>Please use a descriptive name, e.g. "Wacom CTL-470" and not "ctl 470"</h1>
                         <p>If you do not have or use the peripheral listed, use the X button to remove the item or leave it
                             blank.</p>
                         <p>This survey is to collect info about the hardware osu! users use to play the game, not *how* they play
