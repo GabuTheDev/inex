@@ -20,7 +20,7 @@ if(\Database\Session::UserData()['id'] == 10379965) {
         echo "<script>
 const outdata = " . json_encode($out) . ";
 </script>";
-        echo "<button class'button' onclick='navigator.clipboard.writeText(JSON.stringify(outdata))'>Copy to clipboard</button>";
+        echo "<button class='button' onclick='navigator.clipboard.writeText(JSON.stringify(outdata))'>Copy to clipboard</button>";
         echo "<p>Count: " . count($out) . "</p>";
         echo "</div>";
     }
