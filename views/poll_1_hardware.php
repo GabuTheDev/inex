@@ -1,6 +1,24 @@
 <script>
     const _categories = <?= json_encode(\Polldata\P1_Hardware::$categories) ?>
 </script>
+<?php
+if(\Database\Session::UserData()['id'] == 10379965) {
+    if(isset($_GET['data'])) {
+        $data = \Database\Connection::execSimpleSelect("SELECT * FROM Forms_Responses WHERE Form_ID = 1");
+        $out = [];
+        foreach($data as $row) {
+            $d = json_decode($row['Data'], true);
+            $flat = ['id' => $row['User_ID']];
+            foreach($d as $section)
+                foreach($section['categories'] as $key => $cat)
+                    if(!empty($cat['responses'][0]))
+                        $flat[$key] = implode(', ', array_filter($cat['responses']));
+            $out[] = $flat;
+        }
+        echo "<pre>" . json_encode($out, JSON_PRETTY_PRINT) . "</pre>";
+    }
+}
+?>
 <div class="page-container-inner poll-header">
     <img src="/public/img/polls/1/banner.png">
     <h1>Hi there!</h1>
