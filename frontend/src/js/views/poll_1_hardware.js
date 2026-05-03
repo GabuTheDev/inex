@@ -40,6 +40,7 @@ if (document.getElementById("form-controls")) {
     let form = document.getElementById("form-controls");
 
     for (let category in categories) {
+        if (categories[category].show === false) continue;
         let cat = D2.Div("form-category", () => {
             D2.Text("h1", categories[category].title);
             if(categories[category].note) D2.Text("p", categories[category].note, "note")
