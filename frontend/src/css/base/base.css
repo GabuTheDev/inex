@@ -50,3 +50,134 @@ body {
 ::-webkit-scrollbar-corner {
     background: #000;
 }
+
+
+
+.alerts {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 100vw;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+    >a {
+        cursor: unset;
+        transition: all 0.2s ease;
+        outline: 2px solid #0000;
+        &[href] {
+            cursor: pointer;
+            &:hover {
+                transform: translateY(-8px);
+                background: color-mix(in srgb, var(--col-l3) 70%, transparent);
+                outline: 2px solid var(--col-sat-3);
+            }
+        }
+        color: inherit;
+        background: color-mix(in srgb, var(--col-l2) 70%, transparent);
+        border: color-mix(in srgb, var(--col-l5) 50%, transparent) solid 1px;
+        display: flex;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        align-items: stretch;
+        width: 100%;
+        backdrop-filter: blur(10px);
+        .alert-content {
+            padding: 20px;
+            h1 {
+                font-size: 22px;
+                font-weight: 600;
+            }
+            p {
+                font-size: 16px;
+            }
+        }
+        .dismiss {
+            margin-left: auto;
+            display: flex;
+            align-items: stretch;
+            >button {
+                * {
+                    padding: 0px;
+                    margin: 0px;
+                }
+                padding: 8px !important;
+                border-radius: 0px;
+            }
+        }
+    }
+}
+
+
+
+.drag-placeholder {
+    height: var(--placeholder-height, 40px);
+    box-sizing: border-box;
+}
+
+@keyframes clone-trans {
+    0% {
+        transform: scale(1);
+        background: #fff0;
+        box-shadow: 0px 0px 0px #0000;
+    }
+    100% {
+
+    }
+}
+
+.dragged-clone {
+    animation: clone-trans 0.2s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--drag-width);
+    height: var(--drag-height);
+    transform: scale(1.05);
+    z-index: 9999;
+    pointer-events: none;
+    background: color-mix(in hsl, var(--col-l2), transparent 40%);
+    backdrop-filter: blur(8px);
+    outline: 1px solid var(--col-l4);
+    box-shadow: 0px 20px 10px #0005;
+    border-radius: 12px;
+    border: 0px;
+}
+
+.orderablelist-outer {
+
+}
+
+.draggable-element {
+
+    .drag-handle-area {
+        display: flex;
+        flex-direction: column;
+
+        > * {
+            flex: 1;
+        }
+    }
+
+    .drag-handle {
+
+        opacity: 0.4;
+        font-size: 12px !important;
+    }
+
+    .drag-handle, .remove-btn, .move-up, .move-down {
+        width: 50px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            cursor: pointer;
+            background: var(--brand-accent);
+            border-radius: 900px;
+        }
+    }
+}

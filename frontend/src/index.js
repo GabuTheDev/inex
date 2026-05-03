@@ -9,6 +9,7 @@ import {renderDebugTimings} from "./js/layout/debug";
 import {InitDropdowns} from "./js/ui/dropdown";
 import LoadMore from "./js/ui/notifications";
 import {LoadOTabs} from "./js/ui/otabs";
+import {D2} from "./js/utils/d2";
 
 
 window.loader = createLazyLoadInstance();
@@ -125,3 +126,37 @@ if (notifButton != null) {
         }, 2)
     })
 }
+
+function InitializeAlerts() {
+    let dismissed = JSON.parse(localStorage.getItem("dismissedAlerts"));
+    if (dismissed == null) dismissed = {};
+
+    for (let alert of alerts) {
+        if(alert.id in dismissed) continue;
+        let element = D2.Custom("a","alert-item", () => {
+            let content = D2.Div("alert-content", () => {
+
+            })
+            content.innerHTML = alert.Content;
+            if(alert.Dismissable === "1") {
+                D2.Div("dismiss", () => {
+                    let dismiss = D2.IconOnlyButton("x");
+                    dismiss.addEventListener("click", () => {
+                        dismissed[alert.id] = true;
+                        localStorage.setItem("dismissedAlerts", JSON.stringify(dismissed));
+                        element.remove();
+                    })
+                })
+            }
+        })
+        if(alert.Link) {
+            element.setAttribute("href", alert.Link);
+            element.addEventListener("click", () => {
+                dismissed[alert.id] = true;
+                localStorage.setItem("dismissedAlerts", JSON.stringify(dismissed));
+            })
+        }
+        document.getElementById("alerts").appendChild(element);
+    }
+}
+InitializeAlerts();

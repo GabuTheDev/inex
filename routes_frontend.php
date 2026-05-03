@@ -94,3 +94,11 @@ $router->get('/snapshots/edit/{ver}', function ($ver) {
     if(!\Data\OsekaiUsers::HasPermission("snapshots.admin.edit")) exit;
     DrawViewWithTemplate("snapshots_admin_ver", "page", $ver);
 });
+
+
+$router->get('/poll/1', function () {
+    DrawViewWithTemplate("poll_1_hardware", "page");
+});
+$router->post('/poll/1', function () {
+    echo \Polldata\P1_Hardware::Submit()->ReturnJson();
+});
