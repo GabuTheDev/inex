@@ -83,7 +83,7 @@ ORDER BY Rankings_Users.Count_Medals DESC, Rarest_Medal_Frequency ASC";
             case "accuracy":
                 if (!isset($options['type'])) return ["error" => "No 'type' specified - must be 'total' or 'stdev'"];
                 if ($options['type'] === "total") {
-                    $sql = "SELECT *, S Accuracy_Total FROM Rankings_Users $whereClause ORDER BY Accuracy_Total DESC";
+                    $sql = "SELECT *, (Accuracy_Standard + Accuracy_Taiko + Accuracy_Catch + Accuracy_Mania) AS Accuracy_Total FROM Rankings_Users $whereClause ORDER BY Accuracy_Total DESC";
                 } else {
                     $sql = "SELECT * FROM Rankings_Users $whereClause ORDER BY Accuracy_Stdev DESC";
                 }

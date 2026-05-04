@@ -13,6 +13,7 @@ class BaseConnection
     {
         $this->connection = new mysqli($host, $username, $password, $database);
         $this->connection->set_charset("utf8mb4"); // to fix emojis in comments
+        $this->connection->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
     }
 
     /**
@@ -24,10 +25,6 @@ class BaseConnection
      */
     public function execSelect($strQuery, $strTypes, $colVariables, $cacheKey = "", $cacheLength = 0): array
     {
-        if (count($colVariables) == 0) {
-            return self::execSimpleSelect($strQuery);
-        }
-
         $cacheKey .= "t" . $cacheLength;
         $cache = false;
         if ($cacheLength != 0) {
@@ -39,7 +36,9 @@ class BaseConnection
         }
         $mysql = $this->connection;
         $stmt = $mysql->prepare($strQuery);
-        $stmt->bind_param($strTypes, ...$colVariables);
+        if ($strTypes !== "") {
+            $stmt->bind_param($strTypes, ...$colVariables);
+        }
         $stmt->execute();
         $meta = $stmt->result_metadata();
 
@@ -92,21 +91,7 @@ class BaseConnection
      */
     public function execSimpleSelect($strQuery, $cacheKey = "", $cacheLength = 0): array
     {
-        $hits = [];
-        $cache = false;
-        if ($cacheKey != "") $cache = true;
-        if ($cache == true) {
-            $resp = Database\Memcache::get($cacheKey);
-            if ($resp != false) return json_decode($resp, true);
-        }
-        $oQuery = $this->connection->query($strQuery);
-        while ($val = $oQuery->fetch_assoc()) {
-            $hits[] = $val;
-        }
-        if ($cache == true) {
-            Database\Memcache::set($cacheKey, json_encode($hits), $cacheLength);
-        }
-        return $hits;
+        return $this->execSelect($strQuery, "", [], $cacheKey, $cacheLength);
     }
 
     /**

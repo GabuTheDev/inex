@@ -152,9 +152,9 @@ $router->all("/api/badges/get_all", function () {
 /// =====================
 
 $router->all("/api/rankings/get", function () {
-    $type = $_POST['type'] ?? '';
-    $options = $_POST['options'] ?? [];
-    $offset = $_POST['offset'] ?? 0;
+    $type = $_REQUEST['type'] ?? '';
+    $options = $_REQUEST['options'] ?? [];
+    $offset = $_REQUEST['offset'] ?? 0;
     echo \Data\Rankings::GetRanking($type, $options, 50, $offset)->ReturnJson();
 });
 $router->all("/api/rankings/add", function () {
